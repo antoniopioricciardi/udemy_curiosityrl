@@ -1,0 +1,11 @@
+Python3
+Torch 1.4.0
+Numpy 1.19.5
+Matplotlib 3.1.1
+Gym[all] 0.18.3
+Gym-miniworld (from source)
+
+wget http://www.atarimania.com/roms/Roms.rar
+mkdir /content/ROM/
+unrar e /content/Roms.rar /content/ROM/
+python -m atari_py.import_roms /content/ROM/
