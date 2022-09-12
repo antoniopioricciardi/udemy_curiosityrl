@@ -1,5 +1,4 @@
 import os
-import gym
 import torch.multiprocessing as mp
 from actor_critic import ActorCritic  # for the global agent
 from shared_adam import SharedAdam

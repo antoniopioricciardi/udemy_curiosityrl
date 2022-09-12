@@ -19,8 +19,9 @@ class ActorCritic(nn.Module):
         self.conv_3 = nn.Conv2d(32, 32, 3, stride=2, padding=1)
         self.conv_4 = nn.Conv2d(32, 32, 3, stride=2, padding=1)
 
-        self.conv_shape = self.calc_conv_shape(input_dims)
-        self.gru = nn.GRU(input_size=self.conv_shape, hidden_size=256)
+        conv_shape = self.calc_conv_shape(input_dims)
+        # self.gru = nn.GRU(input_size=self.conv_shape, hidden_size=256)
+        self.gru = nn.GRUCell(conv_shape, 256)
         self.pi = nn.Linear(256, n_actions)
         self.v = nn.Linear(256, 1)
 
@@ -46,12 +47,12 @@ class ActorCritic(nn.Module):
         x = F.elu(self.conv_4(x))
         # print(x.size())
         # x.size()[0] is needed to batch data, flatten the rest
-        x = x.view((x.size()[0], -1)).unsqueeze(0)
+        x = x.view((x.size()[0], -1))# .unsqueeze(0)
         # print(x.size())
 
         # hx = hx[None, :]
         # hx = hx.unsqueeze(0)
-        _, hx = self.gru(x, (hx))
+        hx = self.gru(x, (hx))
         pi = self.pi(hx)
         value = self.v(hx)
 
@@ -86,7 +87,8 @@ class ActorCritic(nn.Module):
     def calc_cost(self, new_state, hx, done, rewards, values, log_probs):
         returns = self.calc_R(done, rewards, values)
         # values needed to compute delta
-        next_v = torch.zeros(1, 1, 1) if done else self.forward(torch.tensor([new_state], dtype=torch.float), hx)[1]
+        # next_v = torch.zeros(1, 1, 1) if done else self.forward(torch.tensor([new_state], dtype=torch.float), hx)[1]
+        next_v = torch.zeros(1, 1) if done else self.forward(torch.tensor([new_state], dtype=torch.float), hx)[1]
         values.append(next_v.detach())
         values = torch.cat(values).squeeze()
         log_probs = torch.cat(log_probs)
@@ -94,7 +96,7 @@ class ActorCritic(nn.Module):
 
         # next_v[1:] because it is the t+1 timestep
         # values[:-1] value function for the state at time T
-        delta_t = rewards + self.gamma * next_v[1:] - values[:-1]
+        delta_t = rewards + self.gamma * values[1:] - values[:-1]
         n_steps = len(delta_t)
 
         gae = np.zeros(n_steps)
@@ -115,11 +117,12 @@ class ActorCritic(nn.Module):
 
         entropy_loss = (-log_probs * torch.exp(log_probs)).sum()
 
-        total_loss = actor_loss + critic_loss + 0.01 * entropy_loss  # 0.01 is Beta from the paper
+        total_loss = actor_loss + critic_loss - 0.01 * entropy_loss  # 0.01 is Beta from the paper
         return total_loss
 
 
 # input_dims = np.array([4,42,42])
+# ac = ActorCritic([4, 42, 42], 6)
 # input_dims = torch.tensor(input_dims)
 # conv_dim = torch.tensor([128])
 # net = ActorCritic(input_dims, 6)

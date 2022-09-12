@@ -1,8 +1,8 @@
 import os
 import torch.multiprocessing as mp
 from parallel_env import ParallelEnv
-os.environ['SET_NUM_THREAD'] = '4'
 from actor_critic import ActorCritic
+os.environ['OMP_NUM_THREADS'] = '1'
 
 """
 def worker:

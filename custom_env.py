@@ -54,6 +54,7 @@ class StackFrames(gym.ObservationWrapper):
     def __init__(self, env, repeat):
         super(StackFrames, self).__init__(env)
         self.repeat = repeat
+        # low=high=(4,42,42)
         self.observation_space = gym.spaces.Box(env.observation_space.low.repeat(repeat, axis=0),
                                                 env.observation_space.high.repeat(repeat, axis=0),
                                                 dtype=np.float32)
