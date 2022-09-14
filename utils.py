@@ -13,7 +13,6 @@ def plot_learning_curve(x, scores, figure_file):
             running_avg[i] = np.mean(scores[max(0, i - n_games):i + 1])
             # running_avg[i] = np.mean(scores[max(0, i-n_games_to_avg):(i+1)])
         plt.plot(x, running_avg, label=str(n_games) + " games avg")
-        print('ahah')
     plt.title(f"Running avg of previous games")
     if first_plot:
         plt.legend()
