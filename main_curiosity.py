@@ -16,6 +16,12 @@ def worker:
 # worker works as a "single threaded" function, no need to worry about multithread here
 
 if __name__ == '__main__':
+    # create a folder to save the results
+    if not os.path.exists('plots'):
+        os.makedirs('plots')
+    if not os.path.exists('models'):
+        os.makedirs('models')
+
     start = time.time()
     mp.set_start_method('spawn')
     global_ep = mp.Value('i', 0)

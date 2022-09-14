@@ -1,3 +1,4 @@
+import os
 from cProfile import label
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,4 +18,4 @@ def plot_learning_curve(x, scores, figure_file):
     if first_plot:
         plt.legend()
         first_plot = False
-    plt.savefig(figure_file)
+    plt.savefig(os.path.join('plots', figure_file))
