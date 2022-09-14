@@ -89,7 +89,7 @@ def worker(name, input_shape, n_actions, global_agent, optimizer, env_id, n_thre
             print('A3C episode {} thread {} of {} steps {:.2f}M score {:.2f}, avg score (100) (5000) {:.2f} {:.2f}'
                     .format(episode, name, n_threads, total_timestep/1e6, score, avg_score, avg_score_5000))
 
-    # plot learning curve, only for first agent
-    if name == "1":
-        x = [z for z in range(episode)]
-        plot_learning_curve(x, scores, "A3C-ICM_MiniWorld-Hallway-v0.png")
+        # plot learning curve, only for first agent
+        if name == "1":
+            x = [z for z in range(episode)]
+            plot_learning_curve(x, scores, "A3C-ICM_MiniWorld-Hallway-v0.png")
