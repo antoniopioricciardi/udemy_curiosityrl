@@ -25,7 +25,8 @@ class ICM(nn.Module):
         self.dense_1 = nn.Linear(288+1, 256) # 288 is the output of phi, 1 is the action
         self.phi_hat_next = nn.Linear(256, 288) # 288 is the output of phi
 
-        self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        # self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cpu')
         self.to(self.device)
 
     # write the forward function

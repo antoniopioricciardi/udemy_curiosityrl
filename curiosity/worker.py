@@ -27,7 +27,7 @@ def worker(name, input_shape, n_actions, global_agent, optimizer, env_id, n_thre
     frame_buffer = [input_shape[1], input_shape[2], 1]  # we use 1 because we know it will be grayscale
     env = make_env(env_id, shape=frame_buffer)
     # instantiate variables to dictate we want to play and keep track of the scores
-    episode, max_steps, total_timestep, scores = 0, 5e5, 0, []  # 5e5 is 500 000 steps
+    episode, max_steps, total_timestep, scores = 0, 2e6, 0, []  # 5e5 is 500 000 steps
     # iterate over eps
     while episode < max_steps:
         obs = env.reset()
@@ -92,4 +92,4 @@ def worker(name, input_shape, n_actions, global_agent, optimizer, env_id, n_thre
         # plot learning curve, only for first agent
         if name == "1":
             x = [z for z in range(episode)]
-            plot_learning_curve(x, scores, "A3C-ICM_MiniWorld-Hallway-v0.png")
+            plot_learning_curve(x, scores, "A3C-ICM_MiniWorld-FourRooms-v0.png")
