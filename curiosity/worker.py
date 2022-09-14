@@ -27,7 +27,7 @@ def worker(name, input_shape, n_actions, global_agent, optimizer, env_id, n_thre
     frame_buffer = [input_shape[1], input_shape[2], 1]  # we use 1 because we know it will be grayscale
     env = make_env(env_id, shape=frame_buffer)
     # instantiate variables to dictate we want to play and keep track of the scores
-    episode, max_steps, total_timestep, scores = 0, 1e4, 0, []  # 5e5 is 500 000 steps
+    episode, max_steps, total_timestep, scores = 0, 2e6, 0, []  # 5e5 is 500 000 steps
     # iterate over eps
     while total_timestep < max_steps:
         obs = env.reset()

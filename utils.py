@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 first_plot = True
-n_games_to_avg = [50, 100]
+n_games_to_avg = [1000, 5000]
 
 def plot_learning_curve(x, scores, figure_file):
     global first_plot
