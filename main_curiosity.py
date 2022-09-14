@@ -21,8 +21,8 @@ if __name__ == '__main__':
     global_ep = mp.Value('i', 0)
     #mp.set_start_method('spawn') # faster but only linux/macos
     # env_id = 'PongNoFrameskip-v4'
-    # env_id = 'MiniWorld-Hallway-v0'
-    env_id = 'MiniWorld-FourRooms-v0'
+    env_id = 'MiniWorld-Hallway-v0'
+    # env_id = 'MiniWorld-FourRooms-v0'
     n_threads = 12
     n_actions = 3
     input_shape = [4, 42, 42]
