@@ -92,4 +92,4 @@ def worker(name, input_shape, n_actions, global_agent, optimizer, env_id, n_thre
         # plot learning curve, only for first agent
         if name == "1":
             x = [z for z in range(episode)]
-            plot_learning_curve(x, scores, "A3C-ICM_MiniWorld-FourRooms-v0.png")
+            plot_learning_curve(x, scores, "A3C-ICM_" + env_id + ".png")
