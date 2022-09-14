@@ -1,8 +1,8 @@
 import os
 import torch.multiprocessing as mp
-from actor_critic import ActorCritic  # for the global agent
+from a3c.actor_critic import ActorCritic  # for the global agent
 from shared_adam import SharedAdam
-from worker import worker
+from a3c.worker import worker
 
 
 os.environ['SET_NUM_THREAD'] = '4'

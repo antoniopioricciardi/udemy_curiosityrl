@@ -1,7 +1,7 @@
 import numpy as np
 import torch
-from actor_critic import ActorCritic
-from memory import Memory
+from a3c.actor_critic import ActorCritic
+from a3c.memory import Memory
 from utils import plot_learning_curve
 from custom_env import make_env
 
