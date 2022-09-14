@@ -90,6 +90,6 @@ def worker(name, input_shape, n_actions, global_agent, optimizer, env_id, n_thre
                     .format(episode, name, n_threads, total_timestep/1e6, score, avg_score, avg_score_5000))
 
         # plot learning curve, only for first agent
-        if name == "1":
+        if name == "1" and (total_timestep % 1e5 == 0):
             x = [z for z in range(episode)]
             plot_learning_curve(x, scores, "A3C-ICM_" + env_id + ".png")
